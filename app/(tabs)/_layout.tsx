@@ -1,34 +1,20 @@
 import { Tabs } from "expo-router";
-import { ImageBackground, Image, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { icons } from "@/constants/icons";
-import { images } from "@/constants/images";
+import { LinearGradient } from "expo-linear-gradient";
 
 function TabIcon({ focused, icon, title }: { focused: boolean; icon: any; title: string }) {
   return (
-    <View className={`items-center justify-center ${focused ? 'mt-2' : 'mt-4'}`}>
-      {focused ? (
-        <ImageBackground
-          source={images.highlight}
-          className="flex-row items-center justify-center px-4 py-2 rounded-full"
-          imageStyle={{ borderRadius: 20 }}
-        >
-          <Image 
-            source={icon} 
-            tintColor="#151312" 
-            className="w-5 h-5" 
-          />
-          <Text className="text-white text-sm font-semibold ml-2">
-            {title}
-          </Text>
-        </ImageBackground>
-      ) : (
-        <View className="p-2">
-          <Image 
-            source={icon} 
-            tintColor="#A8B5DB" 
-            className="w-6 h-6" 
-          />
-        </View>
+    <View className={`items-center justify-center gap-1 ${focused ? 'mt-1' : 'mt-2'}`}>
+      <Image 
+        source={icon} 
+        tintColor={focused ? "#FFFFFF" : "#A8B5DB"} 
+        className={`${focused ? "w-6 h-6" : "w-5 h-5"}`} 
+      />
+      {focused && (
+        <Text className="text-white text-xs font-medium">
+          {title}
+        </Text>
       )}
     </View>
   );
@@ -44,18 +30,20 @@ export default function TabsLayout() {
           justifyContent: "center",
         },
         tabBarStyle: {
-          backgroundColor: "#0F0D23",
-          borderRadius: 25,
+          backgroundColor: "#1A1A2E",
+          borderRadius: 20,
           marginHorizontal: 20,
           marginBottom: 20,
-          height: 60,
+          height: 70,
           position: "absolute",
           borderTopWidth: 0,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.25,
+          shadowColor: "#6C63FF",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
           shadowRadius: 10,
-          elevation: 5,
+          elevation: 10,
+          borderWidth: 1,
+          borderColor: "rgba(108, 99, 255, 0.2)",
         },
       }}
     >

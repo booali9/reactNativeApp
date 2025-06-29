@@ -23,7 +23,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         
-        <Stack.Screen name="movie/[id]"   options={{ headerShown: false }} />
+       
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
