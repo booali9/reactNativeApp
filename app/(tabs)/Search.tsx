@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, FlatList, Image } from "react-native";
+import { 
+  View, 
+  Text, 
+  ActivityIndicator, 
+  FlatList, 
+  Image,
+  TouchableOpacity,
+  Dimensions 
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Feather } from "@expo/vector-icons";
 
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
@@ -9,10 +19,14 @@ import { fetchMovies } from "@/Services/api";
 import { updateSearchCount } from "@/Services/appwrite";
 
 import SearchBar from "@/components/Searchbar";
+import MovieCard from "@/components/MovieCard";
 import MovieDisplayCard from "@/components/MovieCard";
+
+const { width } = Dimensions.get('window');
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const cardWidth = (width - 48) / 3; // 3 columns with padding
 
   const {
     data: movies = [],
@@ -31,8 +45,6 @@ const Search = () => {
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
-
-        // Call updateSearchCount only if there are results
         if (movies?.length! > 0 && movies?.[0]) {
           await updateSearchCount(searchQuery, movies[0]);
         }
@@ -45,12 +57,12 @@ const Search = () => {
   }, [searchQuery]);
 
   return (
-    <View className="flex-1 bg-primary">
-      <Image
-        source={images.bg}
-        className="flex-1 absolute w-full z-0"
-        resizeMode="cover"
-      />
+    <LinearGradient
+      colors={['#0F0F1A', '#1E1E3A', '#2D2D5A']}
+      className="flex-1"
+    >
+      {/* Background Elements */}
+     
 
       <FlatList
         className="px-5"
@@ -66,8 +78,18 @@ const Search = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
         ListHeaderComponent={
           <>
-            <View className="w-full flex-row justify-center mt-20 items-center">
-              <Image source={icons.logo} className="w-12 h-10" />
+            <View className="pt-16 pb-6 px-5 flex-row justify-between items-center">
+                <Image source={icons.logo} className="w-12 h-10" />
+          <TouchableOpacity 
+            className="bg-white/10 p-2 rounded-full"
+          
+          >
+            <Image 
+              
+              className="w-5 h-5"
+              style={{ tintColor: 'white' }}
+            />
+          </TouchableOpacity>
             </View>
 
             <View className="my-5">
@@ -115,7 +137,8 @@ const Search = () => {
           ) : null
         }
       />
-    </View>
+    
+    </LinearGradient>
   );
 };
 
